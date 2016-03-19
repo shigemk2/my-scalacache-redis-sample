@@ -5,11 +5,12 @@ import redis.clients.jedis.Jedis
 
 object Hello {
   def main(args: Array[String]): Unit = {
-    val jedis = new Jedis("localhost")
+    val jedis = new Jedis("192.168.99.100")
     val lock = new JedisLock(jedis, "lockname", 10000, 30000)
     lock.acquire()
     try {
       // do some stuff
+      jedis.set("key", "value")
     }
     finally {
       lock.release()
