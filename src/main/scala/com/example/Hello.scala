@@ -3,6 +3,9 @@ package com.example
 import com.github.jedis.lock.JedisLock
 import redis.clients.jedis.Jedis
 import com.nicta.rng.{Rng, Size}
+import scala.util.Random
+
+import scalaz.Cord
 import scalaz.syntax.monad._
 
 object Hello {
@@ -31,20 +34,9 @@ object Hello {
     // finally {
     //   lock.release()
     // }
-    val rngInt: Rng[String] = Rng.string(Size(10))
-    val rngStr: Rng[String] = Rng.string(Size(10))
-    val kv: Rng[(String, String)] = for {
-      k <- rngInt
-      v <- rngStr
-    } yield (k, v)
-    kv.iterateUntil {
-      case (k, v) => k.length < 5
-    }.map {
-      case (k, v) => {
-        println(k)
-        println(v)
-      }
-    }
+    val k = Cord(new scala.util.Random(new java.security.SecureRandom()).alphanumeric.take(10).mkString)
+    val v = new scala.util.Random(new java.security.SecureRandom()).nextInt(10000)
+    println(k, v)
     println("Hello, world!")
   }
 }
