@@ -1,6 +1,6 @@
 # my-scalacache-redis-sample
 
-Scala x jedis-lock x Redis + キャッシュ！
+Scala x rediscala x Redis + キャッシュ！
 
 https://github.com/abelaska/jedis-lock
 
