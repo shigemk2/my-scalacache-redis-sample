@@ -1,16 +1,17 @@
 package com.example
 
 import com.github.jedis.lock.JedisLock
-import redis.clients.jedis.Jedis
-import com.nicta.rng.{Rng, Size}
-import scala.util.Random
+import redis.clients.jedis._
+import redis._
+import scalacache._
+import scalacache.redis.RedisCache
 
 import scalaz.Cord
-import scalaz.syntax.monad._
 
 object Hello {
   def main(args: Array[String]): Unit = {
-    val jedis = new Jedis("192.168.99.101")
+    val jedis = new Jedis("192.168.99.100", 6379)
+    implicit val scalaCache = ScalaCache(RedisCache("192.168.99.100", 6379))
     val lock = new JedisLock(jedis, "lockname", 10000, 30000)
     lock.acquire()
     try {
