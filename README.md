@@ -1,6 +1,6 @@
 # my-scalacache-redis-sample
 
-Scalaでjedis-lockを使ってRedisにデータを入れる試み。
+Scala x jedis-lock x Redis + キャッシュ！
 
 https://github.com/abelaska/jedis-lock
 
