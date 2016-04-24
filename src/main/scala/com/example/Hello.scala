@@ -10,12 +10,13 @@ import scalacache.redis.RedisCache
 
 object Hello {
   def main(args: Array[String]): Unit = {
-    val jedis = new Jedis("192.168.99.100", 6379)
-    implicit val scalaCache = ScalaCache(RedisCache("192.168.99.100", 6379))
-    jedis.set("key1", "123")
+    val jedis = new JedisPool("192.168.99.100", 6379)
+    implicit val scalaCache = ScalaCache(RedisCache(jedis))
+    jedis.getResource.set("key1", "foo")
+    // scalaCache.cache.put("key1", "foo", None)
+    Thread.sleep(5000)
     println(scalaCache.cache.get("key1"))
-    scalaCache.cache.put("key1", 123, Option(Duration.apply(60, MINUTES)))
-    println(scalaCache.cache.get("key1"))
+    // println(jedis.getResource.get("key1"))
     println("Hello, world!")
   }
 }
