@@ -21,6 +21,7 @@ object Hello {
       case Failure(t) => println(t.getMessage)
     })
     Await.ready(myKey, Duration.Inf)
+    put("key1")("foo")
     val key1 = get("key1")
     key1.onComplete({
       case Success(result) => println(result) // null
